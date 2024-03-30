@@ -149,6 +149,13 @@ const deleteUser = asyncHandler(async (req, res) => {
 
 const updateUser = asyncHandler(async (req, res) => {
     const {fullname, email} = req.body
+
+    const existedUser = await User.findOne({email})
+
+    if(existedUser){
+        throw new ApiError(400, 'Email already exists')
+    }
+
     const user = await User.findByIdAndUpdate(req.user._id, 
         {$set: {fullname, email}},
         {new: true}
