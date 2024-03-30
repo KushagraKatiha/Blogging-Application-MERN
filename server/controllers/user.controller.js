@@ -51,7 +51,7 @@ const registerUser = asyncHandler(async (req, res) => {
         await user.save()
     }
 
-    res.status(201).json(new ApiResponse(200, 'User created successfully', user))
+    res.status(201).json(new ApiResponse(200, 'User created successfully', {fullname, username, email, role}))
 })
 
 const loginUser = asyncHandler(async (req, res) => {

@@ -1,4 +1,4 @@
-import Post from "../models/post.model.js";      // Title, Content, Category, Comments, Author
+import {Post} from "../models/post.model.js";      // Title, Content, Category, Comments, Author
 import asyncHandler from "../utils/asyncHandler.js";
 import ApiError from "../utils/ApiError.js";
 import ApiResponse from "../utils/ApiResponse.js";
@@ -18,7 +18,7 @@ const createPost = asyncHandler(async (req, res) => {
     }
 
     // Create Post with the users user id as the author
-    const post = Post.create({
+    const post = await Post.create({
         title,
         content,
         category,
@@ -26,8 +26,11 @@ const createPost = asyncHandler(async (req, res) => {
     })
 
     // Save the post to the database
-    await post.save()
-
+    if(!post){
+        throw new ApiError(500, 'Failed to create post')
+    }else{
+        await post.save()
+    }
     // Send response to the client
 
     res.status(200).json(new ApiResponse(200, 'Post created successfully', post))
@@ -78,7 +81,7 @@ const deleteUserPost = asyncHandler(async (req, res) => {
     }
 
     // Check if the post belongs to the logged in user
-    if(post.author !== req.user._id){
+    if(post.author.toString() !== req.user._id.toString()){
         throw new ApiError(401, 'Unauthorized')
     }
 
@@ -112,7 +115,7 @@ const updatePost = asyncHandler(async (req, res) => {
     }
 
     // Check if the post belongs to the logged in user
-    if(post.author !== req.user._id){
+    if(post.author.toString() !== req.user._id.toString()){
         throw new ApiError(401, 'Unauthorized')
     }
 

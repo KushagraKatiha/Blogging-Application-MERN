@@ -2,18 +2,18 @@ import {Router} from 'express'
 import { deleteUser, getUser, loginUser, logoutUser, refreshAccessToken, registerUser, updatePassword, updateUser } from '../controllers/user.controller.js'
 import jwtAuth from '../middleware/auth.middleware.js'
 
-const router = Router()
+const userRouter = Router()
 
-router.route('/register').post(registerUser)
-router.route('/login').post(loginUser)
+userRouter.route('/register').post(registerUser)
+userRouter.route('/login').post(loginUser)
 
 // Secure Routes
-router.route('/logout').post(jwtAuth, logoutUser)
-router.route('/delete').delete(jwtAuth, deleteUser)
-router.route('/refresh-access').post(refreshAccessToken)
-router.route('/get-user').get(jwtAuth, getUser)
-router.route('/update').put(jwtAuth, updateUser)
-router.route('/update-password').put(jwtAuth, updatePassword)
+userRouter.route('/logout').post(jwtAuth, logoutUser)
+userRouter.route('/delete').delete(jwtAuth, deleteUser)
+userRouter.route('/refresh-access').post(refreshAccessToken)
+userRouter.route('/get-user').get(jwtAuth, getUser)
+userRouter.route('/update').put(jwtAuth, updateUser)
+userRouter.route('/update-password').put(jwtAuth, updatePassword)
 
 
-export default router
+export default userRouter
