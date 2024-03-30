@@ -16,4 +16,8 @@ app.use('/api/v1/user', router)
 
 // http://localhost:5000/api/v1/user/USER_ROUTE
 
+app.use('/api/v1/post', router)
+
+// http://localhost:5000/api/v1/post/POST_ROUTE
+
 export default app
