@@ -13,6 +13,7 @@ app.use(express.urlencoded({extended: true, limit: '16kb'}))
 
 import userRouter from './routes/userRoutes.js'
 import postRouter from './routes/postRouter.js'
+import commentRouter from './routes/commentRoutes.js'
 app.use('/api/v1/user', userRouter)
 
 // http://localhost:5000/api/v1/user/USER_ROUTE
@@ -20,5 +21,9 @@ app.use('/api/v1/user', userRouter)
 app.use('/api/v1/post', postRouter)
 
 // http://localhost:5000/api/v1/post/POST_ROUTE
+
+app.use('/api/v1/comment', commentRouter)
+
+// http://localhost:5000/api/v1/comment/COMMENT_ROUTE
 
 export default app

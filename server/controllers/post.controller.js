@@ -1,7 +1,8 @@
-import {Post} from "../models/post.model.js";      // Title, Content, Category, Comments, Author
+import {Post} from "../models/post.model.js";     
 import asyncHandler from "../utils/asyncHandler.js";
 import ApiError from "../utils/ApiError.js";
 import ApiResponse from "../utils/ApiResponse.js";
+import { Comment } from "../models/comment.model.js";
 
 const createPost = asyncHandler(async (req, res) => {
     // Check If User is Logged In or not
@@ -38,7 +39,7 @@ const createPost = asyncHandler(async (req, res) => {
 
 const getPosts = asyncHandler(async (req, res) => {
     // Get all the posts form the database 
-    const posts = await Post.find().populate('author')
+    const posts = await Post.find().populate('author').populate('comments')
 
     if(!posts){
         throw new ApiError(404, 'No posts found')
@@ -87,6 +88,9 @@ const deleteUserPost = asyncHandler(async (req, res) => {
 
     // Delete the post
     await Post.findByIdAndDelete(postId)
+
+    // If post is deleted successfully, delete all the comments of the post
+    await Comment.deleteMany({post: postId})
 
     // Send response to the client
     res.status(200).json(new ApiResponse(200, 'Post deleted successfully'))

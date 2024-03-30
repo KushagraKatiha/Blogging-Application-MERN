@@ -4,6 +4,8 @@ import ApiError from "../utils/ApiError.js";
 import ApiResponse from "../utils/ApiResponse.js";
 import emailValidator from "email-validator";
 import jwt from "jsonwebtoken";
+import { Post } from "../models/post.model.js";
+import { Comment } from "../models/comment.model.js";
 
 const generateAccessandRefreshTokens = async (userId) => {
     const user = await User.findById(userId)
@@ -138,12 +140,20 @@ const refreshAccessToken = asyncHandler(async (req, res) => {
 })
 
 const deleteUser = asyncHandler(async (req, res) => {
+    
+    await Post.deleteMany({author: req.user._id})
+    await Comment.deleteMany({author: req.user._id})
+
+
     const user = await User.findByIdAndDelete(req.user._id, {new: true})
 
+    // Delete all posts and comments by the user
+    
     if(!user){
         throw new ApiError(404, 'User not found')
     }
 
+    
     res.status(200).json(new ApiResponse(200, 'User deleted successfully'))
 })
 
