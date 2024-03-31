@@ -86,11 +86,12 @@ const deleteUserPost = asyncHandler(async (req, res) => {
         throw new ApiError(401, 'Unauthorized')
     }
 
+    // Delete all the comments of the post
+    await Comment.deleteMany({post: postId})
+
     // Delete the post
     await Post.findByIdAndDelete(postId)
 
-    // If post is deleted successfully, delete all the comments of the post
-    await Comment.deleteMany({post: postId})
 
     // Send response to the client
     res.status(200).json(new ApiResponse(200, 'Post deleted successfully'))
