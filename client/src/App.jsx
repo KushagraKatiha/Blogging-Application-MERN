@@ -2,6 +2,8 @@ import React from 'react'
 import Signup from './Components/Signup'
 import './App.css'
 import Signin from './Components/Signin'
+import BlogPage from './Components/BlogPage'
+import CreateBlog from './Components/CreateBlog'
 
 function App() {
 
@@ -50,6 +52,8 @@ function App() {
     </div>
       <Signup/>
       <Signin/>
+      <BlogPage/>
+      <CreateBlog/>
     </>
   )
 }
