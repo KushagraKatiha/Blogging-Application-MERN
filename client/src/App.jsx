@@ -4,12 +4,13 @@ import './App.css'
 import Signin from './Components/Signin'
 import BlogPage from './Components/BlogPage'
 import CreateBlog from './Components/CreateBlog'
+import MyProfile from './Components/MyProfile'
 
 function App() {
 
   return (
     <>
-    <div className=' py-10 px-44 bg-gunmetal w-full h-full overflow-auto flex items-center justify-center'>
+    <div className=' py-10 px-44 bg-gunmetal w-full h-full overflow-auto flex justify-center'>
 
           {/* left part */}
           <div className='px-5 py-5 w-2/5 text-white h-full flex flex-col shadow-3xl gap-10 justify-between items-start bg-darkcyan'>
@@ -54,6 +55,7 @@ function App() {
       <Signin/>
       <BlogPage/>
       <CreateBlog/>
+      <MyProfile/>
     </>
   )
 }

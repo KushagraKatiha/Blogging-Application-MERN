@@ -81,7 +81,7 @@ function BlogPage() {
           <div className='flex flex-col gap-10'>
               {
                   dummyBlog.map((blog, index) => (
-                      <div className='shadow-3xl'>
+                      <div className='shadow-3xl' key={index}>
                         <div key={index} className='bg-darkcyan p-5 rounded-md'>
                           <div className='p-3 bg-gunmetal text-timberwolf rounded shadow-3xl'>
                           <h1 className='text-white text-lg font-semibold'>{blog.title}</h1>
