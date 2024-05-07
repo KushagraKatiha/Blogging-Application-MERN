@@ -45,9 +45,9 @@ function MyProfile() {
                     <button className='text-xs font-bold block text-left w-fit'>Go Back</button>
                     <h1 className='text-black text-center mb-3 text-2xl font-bold '>My Blogs</h1>
                     <div className='overflow-y-scroll h-64 flex flex-col p-5 gap-5'>
-                        {dummyBlog.map(blog => {
+                        {dummyBlog.map((blog, index) => {
                             return (
-                                <div className='bg-darkcyan text-white p-2 rounded-md flex flex-col gap-3 shadow-3xl'>
+                                <div className='bg-darkcyan text-white p-2 rounded-md flex flex-col gap-3 shadow-3xl' key={index}>
                                     <h1 className='text-black text-center text-lg font-semibold'>{blog.title}</h1>
                                     <p>{blog.content}</p>
                                     <button className='bg-cornelred text-timberwolf px-2 py-2 rounded font-semibold text-xs w-fit'>Delete</button>
