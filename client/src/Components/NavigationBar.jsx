@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { FaUser} from "react-icons/fa";
+import CreateBlog from './CreateBlog';
 
 function NavigationBar() {
     const [visiblity, setVisiblity] = useState(false)
@@ -8,7 +9,7 @@ function NavigationBar() {
         setVisiblity(!visiblity)
     }
   return (
-    <> 
+    <div className='backdrop-blur-xl py-10 sticky top-0'> 
         <div className='flex justify-between items-center mx-5 w-auto text-lg font-semibold px-14 rounded-md text-black shadow-3xl bg-timberwolf'>
             {/* left part */}
             <div className='w-1/3'>
@@ -28,8 +29,10 @@ function NavigationBar() {
                         <li>signin</li>
                         <li>signout</li>
                     </ul>
-                </div>
-    </>
+            </div>
+
+            <CreateBlog style={'hidden'}/>
+    </div>
   )
 }
 

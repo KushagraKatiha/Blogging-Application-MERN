@@ -1,10 +1,5 @@
 import React from 'react'
-import Signup from './Components/Signup'
 import './App.css'
-import Signin from './Components/Signin'
-import BlogPage from './Components/BlogPage'
-import CreateBlog from './Components/CreateBlog'
-import MyProfile from './Components/MyProfile'
 
 function App() {
 
@@ -51,11 +46,6 @@ function App() {
             </div>
           </div>
     </div>
-      <Signup/>
-      <Signin/>
-      <BlogPage/>
-      <CreateBlog/>
-      <MyProfile/>
     </>
   )
 }

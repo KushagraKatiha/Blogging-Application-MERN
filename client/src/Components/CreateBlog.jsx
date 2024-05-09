@@ -1,9 +1,9 @@
 import React from 'react'
 
-function CreateBlog() {
+function CreateBlog({style}) {
   return (
     <>
-        <div className='py-10 px-44 bg-gunmetal w-full h-full overflow-auto flex flex-col gap-10 items-center justify-center'>
+        <div className={`py-10 px-44 bg-gunmetal w-full h-full overflow-auto flex flex-col gap-10 items-center justify-center ${style}`}>
                 <h1 className='text-4xl font-bold text-white'>
                     Create Blog
                 </h1>
