@@ -1,9 +1,10 @@
 import React from 'react'
 
 function CreateBlog({style}) {
+    const [visiblity, setVisiblity] = React.useState(false)
   return (
-    <>
-        <div className={`py-10 px-44 bg-gunmetal w-full h-full overflow-auto flex flex-col gap-10 items-center justify-center ${style}`}>
+    <div>
+        <div className={`py-10 px-44 bg-gunmetal w-full h-full overflow-auto flex flex-col gap-10 items-center justify-center absolute top-0 ${visiblity ? 'flex' : 'hidden'}  ${style}`}>
                 <h1 className='text-4xl font-bold text-white'>
                     Create Blog
                 </h1>
@@ -17,12 +18,17 @@ function CreateBlog({style}) {
                     <option value="sport">Sport</option>
                     <option value="entertainment">Entertainment</option>
                 </select>
-                <button className='w-1/4 h-10 bg-darkcyan text-white rounded-md'>
+               <div className='w-full flex justify-around'>
+               <button className='w-1/4 h-10 bg-darkcyan text-white rounded-md'>
                     Create
                 </button>
+                <button className='w-1/4 h-10 bg-cornelred text-white rounded-md'>
+                    Close
+                </button>
+               </div>
             </div>
         </div>
-    </>
+    </div>
   )
 }
 

@@ -1,7 +1,15 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './App.css'
+import CreateBlog from './Components/CreateBlog'
 
 function App() {
+
+  const [createBlogVisiblity, setCreateBlogVisiblity] = useState(false) 
+
+  const changeCreateBlogVisiblity = () => {
+    setCreateBlogVisiblity(!createBlogVisiblity)
+    console.log(`Clicked !`);
+}
 
   return (
     <>
@@ -36,7 +44,7 @@ function App() {
             <div>
               <ul className='text-white font-bold'>
                 <li>Blogs</li>
-                <li>Write</li>
+                <li onClick={changeCreateBlogVisiblity}>Write</li>
                 <li>Contact</li>
               </ul>
             </div>
@@ -46,6 +54,7 @@ function App() {
             </div>
           </div>
     </div>
+    <CreateBlog style={createBlogVisiblity ? 'visible' : 'hidden'}/>
     </>
   )
 }
