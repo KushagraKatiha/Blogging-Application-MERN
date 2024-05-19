@@ -1,15 +1,19 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import './App.css'
 import CreateBlog from './Components/CreateBlog'
 import { BlogContext } from './context/blogContext'
 
 function App() {
 
-  const {visiblity, handleVisiblity} = useContext(BlogContext)
+  const {handleVisiblity} = useContext(BlogContext)
 
-  useEffect(() => {
-    console.log(visiblity);
-  }, [visiblity])
+  const navigate = useNavigate()
+
+  const handleGetStarted = (e) => {
+    e.preventDefault()
+    navigate('/signin')
+  }
 
   return (
     <>
@@ -32,9 +36,9 @@ function App() {
             </div>
 
             <div className='w-full flex justify-end items-center mt-8'>
-              <p>
+              <button onClick={handleGetStarted}>
                 Get Started &rArr;
-              </p>
+              </button>
             </div>
           </div>
 

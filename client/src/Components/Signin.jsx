@@ -1,14 +1,23 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 
 function Signin() {
+
+  const navigate = useNavigate()
+
+  const handleCreateHere = (e) => {
+    e.preventDefault()
+    navigate('/signup')
+  }
+
   return (
-    <div className=' py-10 px-44 bg-gunmetal w-full h-full overflow-auto flex items-center justify-center'>
+    <div className=' py-10 px-44 bg-gunmetal w-full h-screen overflow-auto flex items-center justify-center'>
     <div className='w-full flex flex-row-reverse justify-center items-center'>
         {/* left part */}
         <div className='px-5 py-5 w-2/5 text-white h-full flex flex-col gap-10 justify-center'>
          <div className='flex flex-col justify-center items-center'>
             <p className='text-lg'>Don't have an account ?</p>
-            <button className='text-darkcyan text-lg'>Create Here</button>
+            <button className='text-darkcyan text-lg' onClick={handleCreateHere}>Create Here</button>
          </div>
         </div>
 

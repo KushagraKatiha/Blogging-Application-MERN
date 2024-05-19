@@ -1,14 +1,23 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 
 function Signup() {
+
+  const navigate = useNavigate()
+
+  const handleLoginHere = (e) => {
+    e.preventDefault()
+    navigate('/signin')
+  }
+
   return (
-    <div className=' py-10 px-44 bg-gunmetal w-full h-full overflow-auto flex items-center justify-center'>
+    <div className=' py-10 px-44 bg-gunmetal w-full h-screen overflow-auto flex items-center justify-center'>
     <div className='w-full flex justify-center items-center'>
         {/* left part */}
         <div className='px-5 py-5 w-2/5 text-white h-full flex flex-col gap-10 justify-center'>
          <div className='flex flex-col justify-center items-center'>
             <p className='text-lg'>Already have an account ?</p>
-            <button className='text-darkcyan text-lg'>Login Here</button>
+            <button className='text-darkcyan text-lg' onClick={handleLoginHere}>Login Here</button>
          </div>
         </div>
 
