@@ -8,6 +8,7 @@ import Signin from './Components/Signin.jsx'
 import BlogPage from './Components/BlogPage.jsx'
 import MyProfile from './Components/MyProfile.jsx'
 import MainPage from './MainPage.jsx'
+import CreateBlog from './Components/CreateBlog.jsx'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -17,6 +18,7 @@ const router = createBrowserRouter(
       <Route path='/signin' element={<Signin/>} />
       <Route path='/blogs' element={<BlogPage/>} />
       <Route path='/profile' element={<MyProfile />} />
+      <Route path='/create' element={<CreateBlog/>} />
     </Route>
   )
 )

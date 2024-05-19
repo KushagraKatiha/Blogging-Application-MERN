@@ -1,29 +1,27 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { FaUser} from "react-icons/fa";
-import CreateBlog from './CreateBlog';
+import { BlogContext } from '../context/blogContext';
 
 function NavigationBar() {
+
+    const {visiblity, handleVisiblity} = useContext(BlogContext)
+
     const [userVisiblity, setUserVisiblity] = useState(false)
-    const [createBlogVisiblity, setCreateBlogVisiblity] = useState(false)
     
     const changeUserVisiblity = () => {
         setUserVisiblity(!userVisiblity)
         console.log(`Clicked !`);
     }
 
-    const changeCreateBlogVisiblity = () => {
-        setCreateBlogVisiblity(!createBlogVisiblity)
-        console.log(`Clicked !`);
-    }
   return (
-    <div className='backdrop-blur-xl py-10 sticky top-0'> 
+    <div className='bg-gunmetal py-10 sticky top-0'> 
         <div className='flex justify-between items-center mx-5 w-auto text-lg font-semibold px-14 rounded-md text-black shadow-3xl bg-timberwolf'>
             {/* left part */}
             <div className='w-1/3'>
                 <ul className='flex justify-around'>
-                    <li className='cursor-pointer'>Home</li>
-                    <li className='cursor-pointer' onClick={changeCreateBlogVisiblity}>Write</li>
-                    <li className='cursor-pointer'>Contact</li>
+                    <li className='cursor-pointer'><button>Home</button></li>
+                    <li className='cursor-pointer'><button onClick={handleVisiblity}>Write</button></li>
+                    <li className='cursor-pointer'><button>Contact</button></li>
                 </ul>
             </div>
             <div>
@@ -37,8 +35,6 @@ function NavigationBar() {
                         <li>signout</li>
                     </ul>
             </div>
-
-            <CreateBlog style={createBlogVisiblity ? 'visible' : 'hidden'}/>
     </div>
   )
 }

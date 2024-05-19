@@ -1,20 +1,19 @@
-import React, { useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import './App.css'
 import CreateBlog from './Components/CreateBlog'
+import { BlogContext } from './context/blogContext'
 
 function App() {
 
-  const [createBlogVisiblity, setCreateBlogVisiblity] = useState(false) 
+  const {visiblity, handleVisiblity} = useContext(BlogContext)
 
-  const changeCreateBlogVisiblity = () => {
-    setCreateBlogVisiblity(!createBlogVisiblity)
-    console.log(`Clicked !`);
-}
+  useEffect(() => {
+    console.log(visiblity);
+  }, [visiblity])
 
   return (
     <>
     <div className=' py-10 px-44 bg-gunmetal w-full h-full overflow-auto flex justify-center'>
-
           {/* left part */}
           <div className='px-5 py-5 w-2/5 text-white h-full flex flex-col shadow-3xl gap-10 justify-between items-start bg-darkcyan'>
             <div>
@@ -43,9 +42,9 @@ function App() {
           <div className='w-3/5 h-full flex flex-col justify-end items-end p-5'>
             <div>
               <ul className='text-white font-bold'>
-                <li>Blogs</li>
-                <li onClick={changeCreateBlogVisiblity}>Write</li>
-                <li>Contact</li>
+                <li><button>Blogs</button></li>
+                <li><button onClick={handleVisiblity}>Write</button></li>
+                <li><button>Contact</button></li>
               </ul>
             </div>
 
@@ -54,7 +53,7 @@ function App() {
             </div>
           </div>
     </div>
-    <CreateBlog style={createBlogVisiblity ? 'visible' : 'hidden'}/>
+    <CreateBlog />
     </>
   )
 }
