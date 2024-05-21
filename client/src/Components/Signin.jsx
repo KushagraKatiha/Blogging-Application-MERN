@@ -1,9 +1,28 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import axios from 'axios'
 
 function Signin() {
 
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+
   const navigate = useNavigate()
+
+  const handleLogin = () => {
+    
+      axios.post('/api/v1/user/login', {
+        email, 
+        password
+      })
+      .then(res => {
+        console.log(res);
+        if(res.status === 201){
+          navigate('/blogs')
+      }})
+      .catch(err => console.error('error: ', err.response.data.message))
+    
+  }
 
   const handleCreateHere = (e) => {
     e.preventDefault()
@@ -25,10 +44,10 @@ function Signin() {
         <div className='shadow-3xl w-3/5 h-full flex flex-col gap-5 justify-center items-center p-5 bg-darkcyan'>
           <h1 className='text-white text-xl font-semibold space-x-2'>Login Here</h1>
           <form className='flex flex-col gap-5' action="">
-            <input className='bg-transparent text-white px-3 py-1 border-2 outline-none placeholder-white rounded-md' type="text" placeholder='Username or email...' />
-            <input className='bg-transparent text-white px-3 py-1 border-2 outline-none placeholder-white rounded-md' type="password" placeholder='Password here...' />
+            <input onChange={(e) => setEmail(e.target.value)} className='bg-transparent text-white px-3 py-1 border-2 outline-none placeholder-white rounded-md' type="text" placeholder='Username or email...' />
+            <input onChange={(e) => setPassword(e.target.value)} className='bg-transparent text-white px-3 py-1 border-2 outline-none placeholder-white rounded-md' type="password" placeholder='Password here...' />
            <div className='w-full flex justify-between'>
-           <input className='bg-timberwolf px-2 py-1 rounded font-bold cursor-pointer' type="button" value="login" />
+           <input onClick={handleLogin} className='bg-timberwolf px-2 py-1 rounded font-bold cursor-pointer' type="button" value="login" />
            </div>
           </form>
         </div>

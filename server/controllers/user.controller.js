@@ -77,38 +77,42 @@ const registerUser = asyncHandler(async (req, res) => {
 const loginUser = asyncHandler(async (req, res) => {
   const { email, username, password } = req.body;
 
-  if ((!email || !username) && !password) {
-    throw new ApiError(400, "Email/Username and password are required");
+  try {
+    if ((!email || !username) && !password) {
+      throw new ApiError(400, "Email/Username and password are required");
+    }
+  
+    const user = await User.findOne({
+      $or: [{ email }, { username }],
+    }).select("+password");
+  
+    if (!user) {
+      throw new ApiError(400, "User not found", false);
+    }
+  
+    const passwordMatched = await user.checkPassword(password);
+  
+    if (!passwordMatched) {
+      throw new ApiError(401, "Incorrect password");
+    }
+  
+    const { accessToken, refreshToken } = await generateAccessandRefreshTokens(
+      user._id
+    );
+  
+    const loggedInUser = await User.findById(user._id);
+  
+    const cookieOptions = {
+      httpOnly: true,
+    };
+  
+    res.cookie("accessToken", accessToken, cookieOptions);
+    res.cookie("refreshToken", refreshToken, cookieOptions);
+  
+    res.status(201).json(new ApiResponse(200, "Login successful", loggedInUser));
+  } catch (error) {
+    res.status(500).json(error)
   }
-
-  const user = await User.findOne({
-    $or: [{ email }, { username }],
-  }).select("+password");
-
-  if (!user) {
-    throw new ApiError(404, "User not found");
-  }
-
-  const passwordMatched = await user.checkPassword(password);
-
-  if (!passwordMatched) {
-    throw new ApiError(401, "Incorrect password");
-  }
-
-  const { accessToken, refreshToken } = await generateAccessandRefreshTokens(
-    user._id
-  );
-
-  const loggedInUser = await User.findById(user._id);
-
-  const cookieOptions = {
-    httpOnly: true,
-  };
-
-  res.cookie("accessToken", accessToken, cookieOptions);
-  res.cookie("refreshToken", refreshToken, cookieOptions);
-
-  res.status(201).json(new ApiResponse(200, "Login successful", loggedInUser));
 });
 
 const logoutUser = asyncHandler(async (req, res) => {
