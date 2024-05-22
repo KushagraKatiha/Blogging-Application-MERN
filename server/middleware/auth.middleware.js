@@ -5,6 +5,9 @@ import { User } from '../models/user.model.js'
 const jwtAuth = async (req, _, next) => {
     try {
         const accessToken = req.cookies?.accessToken
+
+        // Check if access token is expired
+        
            
         if(!accessToken){
             throw new ApiError(401, 'Unauthorized')
@@ -25,7 +28,7 @@ const jwtAuth = async (req, _, next) => {
         req.user = user
         next()
     } catch (error) {
-        throw new ApiError(401, error.message || 'Unauthorized')
+        next()
     }
 }
 

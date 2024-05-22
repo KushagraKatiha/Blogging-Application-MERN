@@ -6,7 +6,7 @@ function CreateBlog() {
 
     const [title, setTitle] = useState('')
     const [content, setContent] = useState('')
-    const [category, setCategory] = useState('')
+    const [category, setCategory] = useState('news')
 
     const {visiblity, handleVisiblity} = useContext(BlogContext)
 
@@ -25,7 +25,7 @@ function CreateBlog() {
                 handleVisiblity()
             }
         })
-        .catch(err => console.error('error: ', err.response.data.message))
+        .catch(err => console.error('error: ', err.response))
     }
 
 

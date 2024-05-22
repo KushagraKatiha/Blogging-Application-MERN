@@ -6,35 +6,38 @@ import { Comment } from "../models/comment.model.js";
 
 const createPost = asyncHandler(async (req, res) => {
     // Check If User is Logged In or not
-    if(!req.user){
-        throw new ApiError(401, 'Unauthorized')
-    }
-
-    // If user is logged in get post details form the request body
-    const {title, content, category} = req.body
-
-    // Check if all fields are provided
-    if([title, content, category].some((field) => field?.trim() === '')){
-        throw new ApiError(400, 'All fields are required')
-    }
-
-    // Create Post with the users user id as the author
-    const post = await Post.create({
-        title,
-        content,
-        category,
-        author: req.user._id
-    })
-
-    // Save the post to the database
-    if(!post){
-        throw new ApiError(500, 'Failed to create post')
-    }else{
-        await post.save()
-    }
-    // Send response to the client
-
-    res.status(200).json(new ApiResponse(200, 'Post created successfully', post))
+   try {
+     if(!req.user){
+         throw new ApiError(401, 'Unauthorized')
+     }
+ 
+     // If user is logged in get post details form the request body
+     const {title, content, category} = req.body
+     // Check if all fields are provided
+     if([title, content, category].some((field) => field?.trim() === '')){
+         throw new ApiError(400, 'All fields are required', false)
+     }
+ 
+     // Create Post with the users user id as the author
+     const post = await Post.create({
+         title,
+         content,
+         category,
+         author: req.user._id
+     })
+ 
+     // Save the post to the database
+     if(!post){
+         throw new ApiError(500, 'Failed to create post')
+     }else{
+         await post.save()
+     }
+     // Send response to the client
+ 
+     res.status(200).json(new ApiResponse(200, 'Post created successfully', post))
+   } catch (error) {
+    res.status(500).json(error)
+   }
 })
 
 const getPosts = asyncHandler(async (req, res) => {
@@ -47,6 +50,22 @@ const getPosts = asyncHandler(async (req, res) => {
 
     // Send response to the client
     res.status(200).json(new ApiResponse(200, 'Posts retrieved successfully', posts))
+})
+
+const getSinglePost = asyncHandler(async (req, res) => {
+    // Get the post id from the request params
+    const { postId } = req.params
+    const post = await Post.findById(postId).populate('author').populate('comments')
+    
+    try {
+        if(!post){
+            throw new ApiError(404, 'Post not found')
+        }
+
+        res.status(200).json(new ApiResponse(200, 'Post retrieved successfully', post))
+    } catch (error) {
+        res.status(500).json(error)
+    }
 })
 
 const getUserPosts = asyncHandler(async (req, res) => {
@@ -154,5 +173,6 @@ export {
     deleteUserPost,
     getUserPosts,
     updatePost,
-    searchPosts
+    searchPosts,
+    getSinglePost
 }

@@ -9,6 +9,7 @@ import BlogPage from './Components/BlogPage.jsx'
 import MyProfile from './Components/MyProfile.jsx'
 import MainPage from './MainPage.jsx'
 import CreateBlog from './Components/CreateBlog.jsx'
+import ViewBlog from './Components/ViewBlog.jsx'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -17,6 +18,7 @@ const router = createBrowserRouter(
       <Route path="/signup" element={<Signup />} />
       <Route path='/signin' element={<Signin/>} />
       <Route path='/blogs' element={<BlogPage/>} />
+      <Route path='/blog/:id' element={<ViewBlog/>} />
       <Route path='/profile' element={<MyProfile />} />
       <Route path='/create' element={<CreateBlog/>} />
     </Route>

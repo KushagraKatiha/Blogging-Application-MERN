@@ -1,10 +1,11 @@
 import { Router } from 'express'
-import { createPost, getPosts, deleteUserPost, getUserPosts, updatePost, searchPosts } from '../controllers/post.controller.js'
+import { createPost, getPosts, deleteUserPost, getUserPosts, updatePost, searchPosts, getSinglePost } from '../controllers/post.controller.js'
 import jwtAuth from '../middleware/auth.middleware.js'
 
 const postRouter = Router()
 
 postRouter.route('/get-posts').get(getPosts)
+postRouter.route('/:postId').get(getSinglePost)
 postRouter.route('/search').post(searchPosts)
 
 // Secured Routes
